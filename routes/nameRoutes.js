@@ -1,14 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const nameController = require("../controllers/nameController");
 
-router.get("/", (req, res, next) => {
-    try {
-        res.status(400).send("Ynno Plucena")
-    } catch (error) {
-        res.status(500).json({
-            error:"Error giving name"
-        })
-    }
-})
+router.get("/", nameController.getName)
 
 module.exports = router;
