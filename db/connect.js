@@ -1,5 +1,8 @@
 
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.configDotenv();
+
 
 const URI = process.env.DB_URI;
 

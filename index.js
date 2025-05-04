@@ -1,6 +1,8 @@
 import express from "express";
 const app = express();
 import { initDb } from "./db/connect.js";
+import dotenv from "dotenv";
+dotenv.configDotenv();
 
 const PORT = process.env.DEV_PORT || 8080;
 import nameRoutes from "./routes/userRoutes.js";
