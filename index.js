@@ -1,13 +1,23 @@
-const express = require("express");
+import express from "express";
 const app = express();
-require("dotenv").config();
+import { initDb } from "./db/connect.js";
 
 const PORT = process.env.DEV_PORT || 8080;
+import nameRoutes from "./routes/userRoutes.js";
 
-const nameRoutes = require("./routes/nameRoutes");
 
+app.use(express.json()).use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();    
+});
 app.use("/", nameRoutes);
 
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`);
-});
+
+initDb((err, mongoDB) => {
+    if (err) {
+      console.log(err);
+    } else {
+      app.listen(PORT);
+      console.log(`Connected to DB and listening on ${PORT}`);
+    }
+  });

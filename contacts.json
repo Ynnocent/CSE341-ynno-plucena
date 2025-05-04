@@ -1,0 +1,23 @@
+{
+    "contact1": {
+        "fname": "John",
+        "lname": "Doe",
+        "email": "jdoe@gmail.com",
+        "favoriteColor": "blue",
+        "birthdate": "1990-01-01"
+    },
+    "contact2": {
+        "fname": "Jane",
+        "lname": "Smith",
+        "email": "jsmith@gmail.com",
+        "favoriteColor": "green",
+        "birthdate": "1992-02-02"
+    },
+    "contact3": {
+        "fname": "Alice",
+        "lname": "Johnson",
+        "email": "aliceJ@gmail.com",
+        "favoriteColor": "red",
+        "birthdate": "1995-03-03"
+    }
+}
