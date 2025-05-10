@@ -1,0 +1,33 @@
+GET http://localhost:8080/
+
+
+###
+
+GET http://localhost:8080/681eea0fadee391cee35b34f
+
+###
+POST http://localhost:8080/newcontact
+Content-Type: application/json
+
+{
+    "fname": "John",
+    "lname": "Doe",
+    "favoriteColor": "Violet",
+    "birthdate": "1990-01-01",
+    "email": "jdoe@gmail.com"
+}
+
+###
+PUT http://localhost:8080/updatecontact/681eea0fadee391cee35b34f
+Content-Type: application/application/json
+
+{
+    "fname": "Lebron",
+    "lname": "James",
+    "favoriteColor": "Burgundy",
+    "birthdate": "1990-01-01",
+    "email": "ljames@gmail.com"
+}
+
+###
+DELETE http://localhost:8080/deletecontact/681eea0fadee391cee35b34f

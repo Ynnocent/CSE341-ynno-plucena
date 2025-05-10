@@ -6,30 +6,34 @@ dotenv.configDotenv();
 
 const URI = process.env.DB_URI;
 
-let _db;
-
-export const initDb = async (callback) => {
-    if (_db) {
-
-        console.log("Database is already initialized!");
-        return callback(null, _db);
+export const initDb = async () => {
+    try {
+      const mongoDB = await MongoClient.connect(URI);
+  
+      if (!mongoDB) {
+        throw Error({
+          status: "error",
+          message: "MongoDB connection failed.",
+        });
+      } else {
+        // console.log("MongoDB connected successfully");
+        return mongoDB;
+      }
+    } catch (error) {
+      return error;
     }
-    await MongoClient.connect(URI)
-    .then((client) => {
-        _db = client;
-        callback(null, _db);
-    })
-    .catch((err) => {
-        callback(err);
-    });
-}
-
-export const getDb = () => {
-    if (!_db) {
-      throw Error('Db not initialized');
-    }
-    return _db;
   };
   
-
+  export const getDb = async () => {
+    try {
+      const mongoDB = await initDb().then((client) => {
+        return client.db("CSE341DB");
+      });
+      return mongoDB;
+    } catch (error) {
+      console.error("Error in getDB:", error);
+      throw error;
+    }
+  };
+  
 
