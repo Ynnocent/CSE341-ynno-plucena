@@ -28,7 +28,7 @@ export const getSingle = async (req, res, next) => {
     const db = await getDb();
     const user = await db.collection("contacts").findOne({ _id: userId });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Contact not found" });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -39,9 +39,9 @@ export const getSingle = async (req, res, next) => {
 
 export const createContact = async (req, res, next) => {
   const { fname, lname, email, favoriteColor, birthdate } = req.body;
-  // if (!fname || !lname || favColor || birthdate || !email) {
-  //   return res.status(400).json({ message: "All fields are required" });
-  // }
+  if (!fname || !lname || !email || !favoriteColor || !birthdate) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
 
   const newContact = {
     fname,
@@ -54,7 +54,7 @@ export const createContact = async (req, res, next) => {
   try {
     const db = await getDb();
     const result = await db.collection("contacts").insertOne(newContact);
-    res.status(201).json(result);
+    res.status(201).json({message: "Contact created successfully"});
   } catch (error) {
     console.error("Error creating contact:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -89,7 +89,7 @@ export const updateContact = async (req, res, next) => {
       .updateOne({ _id: userId }, { $set: updatedContact });
 
     if (result.matchedCount === 0) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Contact not found" });
     }
     res.status(200).json(result);
   } catch (error) {
@@ -113,9 +113,9 @@ export const deleteContact = async (req, res, next) => {
       .deleteOne({ _id: userId });
 
     if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Contact not found" });
     }
-    res.status(200).json({ message: "User deleted successfully" });
+    res.status(200).json({ message: "Contact deleted successfully" });
   } catch (error) {
     console.error("Error deleting contact:", error);
     res.status(500).json({ message: "Internal server error" });
