@@ -20,7 +20,7 @@ app.use(express.json()).use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     next();    
 });
-app.use("/", nameRoutes);
+app.use("/contacts", nameRoutes);
 
 
 if (!DB) {

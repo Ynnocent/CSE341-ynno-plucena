@@ -9,7 +9,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "swagger-ui-express": "^5.0.1"
   },
   "scripts": {
     "dev": "nodemon --env-file=.env index.js",
@@ -17,5 +18,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ynno Plucena",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
+  }
 }
