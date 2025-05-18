@@ -38,17 +38,17 @@ const getSingle = async (req, res, next) => {
 };
 
 const createContact = async (req, res, next) => {
-  const { fname, lname, email, favoriteColor, birthdate } = req.body;
-  if (!fname || !lname || !email || !favoriteColor || !birthdate) {
+  const { fname, lname, email, favoriteColor, birthday } = req.body;
+  if (!fname || !lname || !email || !favoriteColor || !birthday) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   const newContact = {
     fname,
     lname,
-    favoriteColor,
-    birthdate,
     email,
+    favoriteColor,
+    birthday,
   };
 
   try {
@@ -68,9 +68,9 @@ const updateContact = async (req, res, next) => {
   }
 
   const userId = ObjectId.createFromHexString(id);
-  const { fname, lname, email, favoriteColor, birthdate } = req.body;
+  const { fname, lname, email, favoriteColor, birthday } = req.body;
 
-  if (!fname || !lname || !email || !favoriteColor || !birthdate) {
+  if (!fname || !lname || !email || !favoriteColor || !birthday) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -79,7 +79,7 @@ const updateContact = async (req, res, next) => {
     lname,
     email,
     favoriteColor,
-    birthdate,
+    birthday,
   };
 
   try {

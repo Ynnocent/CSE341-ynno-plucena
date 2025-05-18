@@ -1,23 +1,23 @@
-{
-    "contact1": {
+[
+    {
         "fname": "John",
         "lname": "Doe",
         "email": "jdoe@gmail.com",
-        "favoriteColor": "blue",
-        "birthdate": "1990-01-01"
+        "favoriteColor": "Blue",
+        "birthday": "01/09/2000"
     },
-    "contact2": {
+    {
         "fname": "Jane",
-        "lname": "Smith",
-        "email": "jsmith@gmail.com",
-        "favoriteColor": "green",
-        "birthdate": "1992-02-02"
+        "lname": "Doe",
+        "email": "janedoe@gmail.com",
+        "favoriteColor": "Red",
+        "birthday": "02/09/2000"
     },
-    "contact3": {
-        "fname": "Alice",
-        "lname": "Johnson",
-        "email": "aliceJ@gmail.com",
-        "favoriteColor": "red",
-        "birthdate": "1995-03-03"
+    {
+        "fname": "Hugo",
+        "lname": "Weaving",
+        "email": "hugow@gmail.com",
+        "favoriteColor": "Magenta",
+        "birthday": "10/09/2000"
     }
-}
+]
