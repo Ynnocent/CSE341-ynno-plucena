@@ -5,7 +5,7 @@
     "description": "Temple API",
     "version": "1.0.0"
   },
-  "host": "cse-341-ynno-plucena.onrender.com/",
+  "host": "cse-341-ynno-plucena.onrender.com",
   "basePath": "/",
   "schemes": [
     "http","https"
