@@ -1,26 +1,31 @@
-import express from "express";
-const app = express();
-import { initDb } from "./db/connect.js";
-import dotenv from "dotenv";
-import cors from "cors";
-dotenv.configDotenv();
-
-const DB  = await initDb();
+const express = require("express");
+const app = require("express")();
+const mongodb = require("./db/connect.js");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv").config();
+// import contactRoutes from "./routes/index.js";
 
 const PORT = process.env.DEV_PORT || 8080;
-import nameRoutes from "./routes/userRoutes.js";
+
+const DB = mongodb.initDb();
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-}))
-app.use(express.json()).use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    next();    
-});
-app.use("/contacts", nameRoutes);
+app
+  .use(bodyParser.json())
+  .use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    ()=>{
+      console.log("Parser activated")
+    }
+    next();
+  })
+  .use('/', require('./routes'));
+
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 
 if (!DB) {

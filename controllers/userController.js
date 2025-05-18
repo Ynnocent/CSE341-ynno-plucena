@@ -1,9 +1,9 @@
-import { getDb } from "../db/connect.js";
+const mongoDB = require("../db/connect.js");
 
-import { ObjectId } from "mongodb";
+const ObjectId = require("mongodb").ObjectId;
 
-export const getAll = async (req, res, next) => {
-  const db = await getDb();
+const getAll = async (req, res, next) => {
+  const db = await mongoDB.getDb();
 
   try {
     const result = db.collection("contacts").find();
@@ -17,15 +17,15 @@ export const getAll = async (req, res, next) => {
   }
 };
 
-export const getSingle = async (req, res, next) => {
+const getSingle = async (req, res, next) => {
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid ID format" });
   }
 
-   const userId = ObjectId.createFromHexString(id);
+  const userId = ObjectId.createFromHexString(id);
   try {
-    const db = await getDb();
+    const db = await mongoDB.getDb();
     const user = await db.collection("contacts").findOne({ _id: userId });
     if (!user) {
       return res.status(404).json({ message: "Contact not found" });
@@ -37,7 +37,7 @@ export const getSingle = async (req, res, next) => {
   }
 };
 
-export const createContact = async (req, res, next) => {
+const createContact = async (req, res, next) => {
   const { fname, lname, email, favoriteColor, birthdate } = req.body;
   if (!fname || !lname || !email || !favoriteColor || !birthdate) {
     return res.status(400).json({ message: "All fields are required" });
@@ -52,16 +52,16 @@ export const createContact = async (req, res, next) => {
   };
 
   try {
-    const db = await getDb();
+    const db = await mongoDB.getDb();
     const result = await db.collection("contacts").insertOne(newContact);
-    res.status(201).json({message: "Contact created successfully"});
+    res.status(201).json({ message: "Contact created successfully" });
   } catch (error) {
     console.error("Error creating contact:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-export const updateContact = async (req, res, next) => {
+const updateContact = async (req, res, next) => {
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid ID format" });
@@ -83,7 +83,7 @@ export const updateContact = async (req, res, next) => {
   };
 
   try {
-    const db = await getDb();
+    const db = await mongoDB.getDb();
     const result = await db
       .collection("contacts")
       .updateOne({ _id: userId }, { $set: updatedContact });
@@ -98,7 +98,7 @@ export const updateContact = async (req, res, next) => {
   }
 };
 
-export const deleteContact = async (req, res, next) => {
+const deleteContact = async (req, res, next) => {
   const id = req.params.id;
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid ID format" });
@@ -107,10 +107,8 @@ export const deleteContact = async (req, res, next) => {
   const userId = ObjectId.createFromHexString(id);
 
   try {
-    const db = await getDb();
-    const result = await db
-      .collection("contacts")
-      .deleteOne({ _id: userId });
+    const db = await mongoDB.getDb();
+    const result = await db.collection("contacts").deleteOne({ _id: userId });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Contact not found" });
@@ -120,4 +118,12 @@ export const deleteContact = async (req, res, next) => {
     console.error("Error deleting contact:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
+
+module.exports = {
+  getAll,
+  getSingle,
+  createContact,
+  updateContact,
+  deleteContact,
+};

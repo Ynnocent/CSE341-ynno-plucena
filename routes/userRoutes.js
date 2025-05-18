@@ -1,16 +1,16 @@
-import { Router } from 'express';
-const router = Router();
+const router = require('express').Router();
+const userController = require('../controllers/userController.js');
 
-import { getAll, getSingle, createContact, updateContact, deleteContact } from '../controllers/userController.js';
 
-router.get('/', getAll);
+router.get('/', userController.getAll);
 
-router.get('/:id', getSingle);
+router.get('/:id', userController.getSingle);
 
-router.post('/newcontact', createContact);
+router.post('/newcontact', userController.createContact);
 
-router.put('/updatecontact/:id', updateContact);
+router.put('/updatecontact/:id', userController.updateContact);
 
-router.delete('/deletecontact/:id', deleteContact);
+router.delete('/deletecontact/:id', userController.deleteContact);
 
-export default router;
+
+module.exports = router;
